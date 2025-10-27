@@ -118,7 +118,7 @@ function App() {
             <Dices className="w-12 h-12" style={{ color: '#8b5cf6' }} />
             <h1 className="text-5xl font-bold text-white">Dice Roller</h1>
           </div>
-          <p className="text-slate-400 text-lg">Select your dice and roll to see the results</p>
+          <p className="text-slate-400 text-lg">Roll the dice to decide your fate</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
