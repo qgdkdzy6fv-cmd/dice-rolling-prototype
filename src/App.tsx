@@ -261,14 +261,19 @@ function App() {
             {isRolling ? 'Rolling...' : `Roll Selected ${totalSelectedDiceCount === 1 ? 'Die' : 'Dice'}`}
           </button>
 
-          {hasResults && (
-            <button
-              onClick={resetAll}
-              className="px-8 py-4 rounded-xl font-semibold text-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg shadow-red-500/50"
-            >
-              Reset {totalSelectedDiceCount === 1 ? 'Die' : 'Dice'}
-            </button>
-          )}
+          <button
+            onClick={resetAll}
+            disabled={!hasSelectedDice}
+            className={`
+              px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
+              ${hasSelectedDice
+                ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/50'
+                : 'bg-slate-700 text-slate-500 cursor-not-allowed'
+              }
+            `}
+          >
+            Reset {totalSelectedDiceCount === 1 ? 'Die' : 'Dice'}
+          </button>
 
           <button
             onClick={resetColors}
