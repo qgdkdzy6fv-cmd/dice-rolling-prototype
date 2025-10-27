@@ -272,7 +272,14 @@ function App() {
 
           <button
             onClick={resetColors}
-            className="px-8 py-4 rounded-xl font-semibold text-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg shadow-red-500/50"
+            disabled={!hasSelectedDice}
+            className={`
+              px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
+              ${hasSelectedDice
+                ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/50'
+                : 'bg-slate-700 text-slate-500 cursor-not-allowed'
+              }
+            `}
           >
             Reset Colors
           </button>
