@@ -15,13 +15,13 @@ interface DiceState {
 
 function App() {
   const [dice, setDice] = useState<DiceState[]>([
-    { type: 4, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 6, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 8, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 10, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 12, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 20, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
-    { type: 100, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 4, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 6, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 8, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 10, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 12, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 20, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
+    { type: 100, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#64748b' },
   ]);
 
   const [isRolling, setIsRolling] = useState(false);
