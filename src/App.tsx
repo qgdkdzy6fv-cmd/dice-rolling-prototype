@@ -264,7 +264,7 @@ function App() {
               onClick={resetAll}
               className="px-8 py-4 rounded-xl font-semibold text-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg shadow-red-500/50"
             >
-              Reset
+              Reset Dice
             </button>
           )}
 
