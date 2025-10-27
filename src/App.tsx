@@ -60,7 +60,7 @@ function App() {
   };
 
   const resetColors = () => {
-    setDice(prev => prev.map(d => ({ ...d, color: '#eab308' })));
+    setDice(prev => prev.map(d => ({ ...d, color: '#64748b' })));
   };
 
   const hexToRgb = (hex: string) => {
