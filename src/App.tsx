@@ -133,8 +133,8 @@ function App() {
                 <Palette className="w-4 h-4 text-slate-300" />
               </button>
               {showColorPicker === index && (
-                <div className="absolute top-12 left-2 z-20 flex flex-wrap gap-1 p-2 bg-slate-700 rounded-lg shadow-xl max-w-[120px]">
-                  {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4'].map(color => (
+                <div className="absolute top-12 left-2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
+                  {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'].map(color => (
                     <button
                       key={color}
                       onClick={(e) => {
