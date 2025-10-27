@@ -123,6 +123,32 @@ function App() {
           {dice.map((d, index) => (
             <div key={d.type} className="relative">
               <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowColorPicker(showColorPicker === index ? null : index);
+                }}
+                className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition-all"
+                title="Change color"
+              >
+                <Palette className="w-4 h-4 text-slate-300" />
+              </button>
+              {showColorPicker === index && (
+                <div className="absolute top-12 left-2 z-20 flex flex-wrap gap-1 p-2 bg-slate-700 rounded-lg shadow-xl max-w-[120px]">
+                  {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4'].map(color => (
+                    <button
+                      key={color}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateColor(index, color);
+                        setShowColorPicker(null);
+                      }}
+                      className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+              )}
+              <button
                 onClick={() => toggleDice(index)}
                 style={d.selected ? {
                   backgroundColor: d.color,
@@ -167,34 +193,6 @@ function App() {
               </button>
 
               <div className="space-y-2 mt-2">
-                <div className="flex justify-center">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowColorPicker(showColorPicker === index ? null : index);
-                    }}
-                    className="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition-all"
-                    title="Change color"
-                  >
-                    <Palette className="w-4 h-4 text-slate-300" />
-                  </button>
-                </div>
-                {showColorPicker === index && (
-                  <div className="flex flex-wrap gap-1 justify-center p-2 bg-slate-700 rounded-lg">
-                    {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4'].map(color => (
-                      <button
-                        key={color}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          updateColor(index, color);
-                          setShowColorPicker(null);
-                        }}
-                        className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-                  </div>
-                )}
                 <div className="flex flex-col items-center gap-1">
                   <span className="text-xs text-slate-500">Quantity</span>
                   <div className="flex items-center justify-center gap-2">
