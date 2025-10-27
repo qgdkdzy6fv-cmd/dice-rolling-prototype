@@ -127,10 +127,10 @@ function App() {
                   e.stopPropagation();
                   setShowColorPicker(showColorPicker === index ? null : index);
                 }}
-                className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all"
+                className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group"
                 title="Change color"
               >
-                <Palette className="w-4 h-4 text-slate-300 opacity-50 hover:opacity-100 transition-opacity" />
+                <Palette className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
               </button>
               {showColorPicker === index && (
                 <div className="absolute top-12 left-2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
