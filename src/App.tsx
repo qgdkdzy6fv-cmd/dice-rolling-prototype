@@ -262,7 +262,7 @@ function App() {
           {hasResults && (
             <button
               onClick={resetAll}
-              className="px-8 py-4 rounded-xl font-semibold text-lg bg-slate-700 hover:bg-slate-600 text-white transition-all duration-200"
+              className="px-8 py-4 rounded-xl font-semibold text-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg shadow-red-500/50"
             >
               Reset
             </button>
@@ -270,7 +270,7 @@ function App() {
 
           <button
             onClick={resetColors}
-            className="px-8 py-4 rounded-xl font-semibold text-lg bg-slate-700 hover:bg-slate-600 text-white transition-all duration-200"
+            className="px-8 py-4 rounded-xl font-semibold text-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-200 shadow-lg shadow-red-500/50"
           >
             Reset Colors
           </button>
