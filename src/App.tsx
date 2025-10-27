@@ -106,6 +106,7 @@ function App() {
   };
 
   const hasSelectedDice = dice.some(d => d.selected);
+  const selectedDiceCount = dice.filter(d => d.selected).length;
   const hasResults = dice.some(d => d.result !== null);
 
   return (
@@ -256,7 +257,7 @@ function App() {
               }
             `}
           >
-            {isRolling ? 'Rolling...' : 'Roll Selected Dice'}
+            {isRolling ? 'Rolling...' : `Roll Selected ${selectedDiceCount === 1 ? 'Die' : 'Dice'}`}
           </button>
 
           {hasResults && (
