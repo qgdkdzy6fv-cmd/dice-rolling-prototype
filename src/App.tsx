@@ -251,7 +251,7 @@ function App() {
             className={`
               px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
               ${hasSelectedDice && !isRolling
-                ? 'bg-yellow-500 hover:bg-yellow-600 text-white shadow-lg shadow-yellow-500/50 hover:scale-105'
+                ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/50 hover:scale-105'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
               }
             `}
