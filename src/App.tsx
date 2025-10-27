@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dices } from 'lucide-react';
+import { Dices, Palette } from 'lucide-react';
 
 type DiceType = 4 | 6 | 8 | 10 | 12 | 20 | 100;
 
@@ -10,20 +10,22 @@ interface DiceState {
   count: number;
   rolls: number[];
   modifier: number;
+  color: string;
 }
 
 function App() {
   const [dice, setDice] = useState<DiceState[]>([
-    { type: 4, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 6, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 8, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 10, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 12, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 20, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
-    { type: 100, selected: false, result: null, count: 1, rolls: [], modifier: 0 },
+    { type: 4, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 6, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 8, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 10, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 12, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 20, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
+    { type: 100, selected: false, result: null, count: 1, rolls: [], modifier: 0, color: '#eab308' },
   ]);
 
   const [isRolling, setIsRolling] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState<number | null>(null);
 
   const toggleDice = (index: number) => {
     setDice(prev => prev.map((d, i) =>
@@ -51,6 +53,25 @@ function App() {
     }));
   };
 
+  const updateColor = (index: number, color: string) => {
+    setDice(prev => prev.map((d, i) =>
+      i === index ? { ...d, color } : d
+    ));
+  };
+
+  const resetColors = () => {
+    setDice(prev => prev.map(d => ({ ...d, color: '#eab308' })));
+  };
+
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 234, g: 179, b: 8 };
+  };
+
   const rollDice = () => {
     const hasSelectedDice = dice.some(d => d.selected);
     if (!hasSelectedDice) return;
@@ -76,6 +97,14 @@ function App() {
     setDice(prev => prev.map(d => ({ ...d, selected: false, result: null, count: 1, rolls: [], modifier: 0 })));
   };
 
+  const lightenColor = (hex: string, percent: number) => {
+    const rgb = hexToRgb(hex);
+    const r = Math.min(255, Math.floor(rgb.r + (255 - rgb.r) * percent));
+    const g = Math.min(255, Math.floor(rgb.g + (255 - rgb.g) * percent));
+    const b = Math.min(255, Math.floor(rgb.b + (255 - rgb.b) * percent));
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
   const hasSelectedDice = dice.some(d => d.selected);
   const hasResults = dice.some(d => d.result !== null);
 
@@ -95,10 +124,15 @@ function App() {
             <div key={d.type} className="relative">
               <button
                 onClick={() => toggleDice(index)}
+                style={d.selected ? {
+                  backgroundColor: d.color,
+                  borderColor: lightenColor(d.color, 0.2),
+                  boxShadow: `0 10px 25px -5px ${d.color}80`
+                } : {}}
                 className={`
                   w-full p-6 rounded-2xl border-2 transition-all duration-200
                   ${d.selected
-                    ? 'bg-yellow-500 border-yellow-400 shadow-lg shadow-yellow-500/50 scale-105'
+                    ? 'scale-105'
                     : 'bg-slate-800 border-slate-700 hover:border-slate-600 hover:bg-slate-750'
                   }
                 `}
@@ -109,29 +143,58 @@ function App() {
                   </div>
                   {d.result !== null && (
                     <>
-                      <div className={`text-sm mb-1 ${d.selected ? 'text-yellow-100' : 'text-slate-400'}`}>
+                      <div className={`text-sm mb-1 ${d.selected ? 'text-white opacity-90' : 'text-slate-400'}`}>
                         {d.rolls.length > 1 ? `[${d.rolls.join(' + ')}]` : d.rolls[0]}
                         {d.modifier !== 0 && (
-                          <span className={d.modifier > 0 ? 'text-yellow-300' : 'text-red-300'}>
+                          <span className={d.modifier > 0 ? 'text-white opacity-80' : 'text-red-300'}>
                             {' '}{d.modifier > 0 ? '+' : ''}{d.modifier}
                           </span>
                         )}
                       </div>
                       <div className={`
                         text-5xl font-extrabold mt-2 animate-bounce
-                        ${d.selected ? 'text-white' : 'text-yellow-400'}
-                      `}>
+                        ${d.selected ? 'text-white' : ''}
+                      `}
+                      style={!d.selected ? { color: d.color } : {}}>
                         {d.result}
                       </div>
                     </>
                   )}
                   {d.selected && d.result === null && (
-                    <div className="text-sm text-yellow-100 mt-2">Selected</div>
+                    <div className="text-sm text-white opacity-90 mt-2">Selected</div>
                   )}
                 </div>
               </button>
 
               <div className="space-y-2 mt-2">
+                <div className="flex justify-center">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowColorPicker(showColorPicker === index ? null : index);
+                    }}
+                    className="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition-all"
+                    title="Change color"
+                  >
+                    <Palette className="w-4 h-4 text-slate-300" />
+                  </button>
+                </div>
+                {showColorPicker === index && (
+                  <div className="flex flex-wrap gap-1 justify-center p-2 bg-slate-700 rounded-lg">
+                    {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4'].map(color => (
+                      <button
+                        key={color}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          updateColor(index, color);
+                          setShowColorPicker(null);
+                        }}
+                        className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                )}
                 <div className="flex flex-col items-center gap-1">
                   <span className="text-xs text-slate-500">Quantity</span>
                   <div className="flex items-center justify-center gap-2">
@@ -206,6 +269,13 @@ function App() {
               Reset
             </button>
           )}
+
+          <button
+            onClick={resetColors}
+            className="px-8 py-4 rounded-xl font-semibold text-lg bg-slate-700 hover:bg-slate-600 text-white transition-all duration-200"
+          >
+            Reset Colors
+          </button>
         </div>
 
       </div>
