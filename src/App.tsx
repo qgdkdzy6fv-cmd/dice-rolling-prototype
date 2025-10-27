@@ -107,6 +107,7 @@ function App() {
 
   const hasSelectedDice = dice.some(d => d.selected);
   const selectedDiceCount = dice.filter(d => d.selected).length;
+  const totalSelectedDiceCount = dice.filter(d => d.selected).reduce((sum, d) => sum + d.count, 0);
   const hasResults = dice.some(d => d.result !== null);
 
   return (
@@ -257,7 +258,7 @@ function App() {
               }
             `}
           >
-            {isRolling ? 'Rolling...' : `Roll Selected ${selectedDiceCount === 1 ? 'Die' : 'Dice'}`}
+            {isRolling ? 'Rolling...' : `Roll Selected ${totalSelectedDiceCount === 1 ? 'Die' : 'Dice'}`}
           </button>
 
           {hasResults && (
