@@ -159,7 +159,7 @@ export function CustomDie({
           `}
         >
           <div className="text-center">
-            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
+            <div className={`${hasBeenIncremented ? 'text-4xl' : 'text-2xl'} font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
               {hasBeenIncremented ? `D${value}` : 'Custom'}
             </div>
             {result !== null && (
