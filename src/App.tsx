@@ -211,9 +211,6 @@ function App() {
                       </div>
                     </>
                   )}
-                  {d.selected && d.result === null && (
-                    <div className="text-sm text-white opacity-90 mt-2">Selected</div>
-                  )}
                 </div>
               </button>
 
