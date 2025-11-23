@@ -86,103 +86,105 @@ export function CustomDie({
   };
 
   return (
-    <div className="relative">
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggleColorPicker();
-        }}
-        className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group"
-        title="Change color"
-      >
-        <Palette className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
-      </button>
-      {showColorPicker && (
-        <div className="absolute top-12 left-2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
-          {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'].map(colorOption => (
-            <button
-              key={colorOption}
-              onClick={(e) => {
-                e.stopPropagation();
-                onUpdateColor(colorOption);
-                onToggleColorPicker();
-              }}
-              className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
-              style={{ backgroundColor: colorOption }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Plus button - top right */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onUpdateValue(Math.min(MAX_VALUE, value + 1));
-        }}
-        disabled={value >= MAX_VALUE}
-        className="absolute top-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
-        title="Increase value"
-      >
-        <Plus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
-      </button>
-
-      {/* Minus button - bottom right */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onUpdateValue(Math.max(MIN_VALUE, value - 1));
-        }}
-        disabled={value <= MIN_VALUE}
-        className="absolute bottom-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
-        title="Decrease value"
-      >
-        <Minus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
-      </button>
-
-      <button
-        onClick={onToggle}
-        style={selected ? {
-          backgroundColor: color,
-          borderColor: lightenColor(color, 0.2),
-          boxShadow: `0 10px 25px -5px ${color}80`
-        } : {}}
-        className={`
-          w-full p-6 rounded-2xl border-2 transition-all duration-200
-          ${selected
-            ? 'scale-105'
-            : 'bg-slate-800 border-slate-700 hover:border-slate-600 hover:bg-slate-750'
-          }
-        `}
-      >
-        <div className="text-center">
-          <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
-            D{value}
+    <div>
+      <div className="relative">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleColorPicker();
+          }}
+          className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group"
+          title="Change color"
+        >
+          <Palette className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+        </button>
+        {showColorPicker && (
+          <div className="absolute top-12 left-2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
+            {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'].map(colorOption => (
+              <button
+                key={colorOption}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onUpdateColor(colorOption);
+                  onToggleColorPicker();
+                }}
+                className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
+                style={{ backgroundColor: colorOption }}
+              />
+            ))}
           </div>
-          {result !== null && (
-            <>
-              <div className={`text-sm mb-1 ${selected ? 'text-white opacity-90' : 'text-slate-400'}`}>
-                {rolls.length > 1 ? `[${rolls.join(' + ')}]` : rolls[0]}
-                {modifier !== 0 && (
-                  <span className={modifier > 0 ? 'text-white opacity-80' : 'text-red-300'}>
-                    {' '}{modifier > 0 ? '+' : ''}{modifier}
-                  </span>
-                )}
-              </div>
-              <div className={`
-                text-5xl font-extrabold mt-2 animate-bounce
-                ${selected ? 'text-white' : ''}
-              `}
-              style={!selected ? { color: color } : {}}>
-                {result}
-              </div>
-            </>
-          )}
-          {selected && result === null && (
-            <div className="text-sm text-white opacity-90 mt-2">Selected</div>
-          )}
-        </div>
-      </button>
+        )}
+
+        {/* Plus button - top right */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onUpdateValue(Math.min(MAX_VALUE, value + 1));
+          }}
+          disabled={value >= MAX_VALUE}
+          className="absolute top-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
+          title="Increase value"
+        >
+          <Plus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+        </button>
+
+        {/* Minus button - bottom right */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onUpdateValue(Math.max(MIN_VALUE, value - 1));
+          }}
+          disabled={value <= MIN_VALUE}
+          className="absolute bottom-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
+          title="Decrease value"
+        >
+          <Minus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+        </button>
+
+        <button
+          onClick={onToggle}
+          style={selected ? {
+            backgroundColor: color,
+            borderColor: lightenColor(color, 0.2),
+            boxShadow: `0 10px 25px -5px ${color}80`
+          } : {}}
+          className={`
+            w-full p-6 rounded-2xl border-2 transition-all duration-200
+            ${selected
+              ? 'scale-105'
+              : 'bg-slate-800 border-slate-700 hover:border-slate-600 hover:bg-slate-750'
+            }
+          `}
+        >
+          <div className="text-center">
+            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
+              D{value}
+            </div>
+            {result !== null && (
+              <>
+                <div className={`text-sm mb-1 ${selected ? 'text-white opacity-90' : 'text-slate-400'}`}>
+                  {rolls.length > 1 ? `[${rolls.join(' + ')}]` : rolls[0]}
+                  {modifier !== 0 && (
+                    <span className={modifier > 0 ? 'text-white opacity-80' : 'text-red-300'}>
+                      {' '}{modifier > 0 ? '+' : ''}{modifier}
+                    </span>
+                  )}
+                </div>
+                <div className={`
+                  text-5xl font-extrabold mt-2 animate-bounce
+                  ${selected ? 'text-white' : ''}
+                `}
+                style={!selected ? { color: color } : {}}>
+                  {result}
+                </div>
+              </>
+            )}
+            {selected && result === null && (
+              <div className="text-sm text-white opacity-90 mt-2">Selected</div>
+            )}
+          </div>
+        </button>
+      </div>
 
       <div className="space-y-2 mt-2">
         <div className="flex flex-col items-center gap-1">
