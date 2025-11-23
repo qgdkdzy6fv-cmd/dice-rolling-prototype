@@ -156,11 +156,11 @@ export function CustomDie({
             }
           `}
         >
-          <div className="text-center relative">
-            <div className={`text-xs absolute top-0 left-0 right-0 ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
+          <div className="text-center">
+            <div className={`text-xs -mt-2 mb-2 ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
               Custom
             </div>
-            <div className={`text-4xl font-bold mb-2 mt-4 ${selected ? 'text-white' : 'text-slate-300'}`}>
+            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
               D{value}
             </div>
             {result !== null && (
