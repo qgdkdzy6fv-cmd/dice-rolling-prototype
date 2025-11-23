@@ -154,15 +154,8 @@ export function CustomDie({
             }
           `}
         >
-          <div className="flex items-center justify-center gap-2 mb-1">
-            <Palette className={`w-3 h-3 ${selected ? 'text-white opacity-40' : 'text-slate-500 opacity-60'}`} />
-            <div className={`text-xs ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
-              Custom
-            </div>
-            <Plus className={`w-3 h-3 ${selected ? 'text-white opacity-40' : 'text-slate-500 opacity-60'}`} />
-          </div>
           <div className="text-center">
-            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
+            <div className={`text-4xl font-bold ${selected ? 'text-white' : 'text-slate-300'}`}>
               D{value}
             </div>
             {result !== null && (
