@@ -156,8 +156,8 @@ export function CustomDie({
             }
           `}
         >
-          <div className="text-center">
-            <div className={`text-xs ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
+          <div className="text-center -my-1">
+            <div className={`text-xs mb-0.5 ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
               Custom
             </div>
             <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
