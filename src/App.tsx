@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dices, Palette } from 'lucide-react';
 import { CustomDie } from './components/CustomDie';
 
@@ -132,6 +132,28 @@ function App() {
   const selectedDiceCount = dice.filter(d => d.selected).length + (customDie.selected ? 1 : 0);
   const totalSelectedDiceCount = dice.filter(d => d.selected).reduce((sum, d) => sum + d.count, 0) + (customDie.selected ? 1 : 0);
   const hasResults = dice.some(d => d.result !== null) || customDie.result !== null;
+
+  useEffect(() => {
+    let timeoutId: number;
+
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.scrollHeight > target.clientHeight || target.scrollWidth > target.clientWidth) {
+        target.classList.add('scrolling');
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          target.classList.remove('scrolling');
+        }, 1000);
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll, true);
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll, true);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-6">
