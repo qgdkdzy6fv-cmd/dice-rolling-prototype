@@ -149,7 +149,7 @@ export function CustomDie({
             boxShadow: `0 10px 25px -5px ${color}80`
           } : {}}
           className={`
-            w-full aspect-square p-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-center
+            w-full p-6 rounded-2xl border-2 transition-all duration-200
             ${selected
               ? 'scale-105'
               : 'bg-slate-800 border-slate-700 hover:border-slate-600 hover:bg-slate-750'
@@ -160,7 +160,7 @@ export function CustomDie({
             <div className={`text-xs mb-1 ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
               Custom
             </div>
-            <div className={`text-4xl font-bold ${selected ? 'text-white' : 'text-slate-300'}`}>
+            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
               D{value}
             </div>
             {result !== null && (
