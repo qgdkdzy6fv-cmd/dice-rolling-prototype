@@ -86,7 +86,7 @@ export function CustomDie({
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className="relative">
         <button
           onClick={(e) => {
@@ -115,7 +115,6 @@ export function CustomDie({
           </div>
         )}
 
-        {/* Plus button - top right */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -128,7 +127,6 @@ export function CustomDie({
           <Plus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
         </button>
 
-        {/* Minus button - bottom right */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -157,7 +155,7 @@ export function CustomDie({
           `}
         >
           <div className="text-center">
-            <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
+            <div className={`text-4xl font-bold ${selected ? 'text-white' : 'text-slate-300'}`}>
               D{value}
             </div>
             {result !== null && (
