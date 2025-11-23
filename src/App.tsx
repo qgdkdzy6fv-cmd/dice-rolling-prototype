@@ -28,14 +28,14 @@ function App() {
   const [isRolling, setIsRolling] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState<number | null>(null);
   const [customDie, setCustomDie] = useState({
-    value: 1,
+    value: 0,
     selected: false,
     result: null as number | null,
     count: 1,
     rolls: [] as number[],
     modifier: 0,
     color: '#64748b',
-    inputValue: '1'
+    inputValue: '0'
   });
 
   const toggleDice = (index: number) => {
