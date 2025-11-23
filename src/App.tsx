@@ -35,7 +35,8 @@ function App() {
     rolls: [] as number[],
     modifier: 0,
     color: '#64748b',
-    inputValue: '1'
+    inputValue: '1',
+    hasBeenIncremented: false
   });
 
   const toggleDice = (index: number) => {
@@ -274,8 +275,9 @@ function App() {
             modifier={customDie.modifier}
             color={customDie.color}
             showColorPicker={showColorPicker === 7}
+            hasBeenIncremented={customDie.hasBeenIncremented}
             onToggle={() => setCustomDie(prev => ({ ...prev, selected: !prev.selected }))}
-            onUpdateValue={(newValue) => setCustomDie(prev => ({ ...prev, value: newValue, inputValue: String(newValue) }))}
+            onUpdateValue={(newValue) => setCustomDie(prev => ({ ...prev, value: newValue, inputValue: String(newValue), hasBeenIncremented: true }))}
             onValueInputChange={(value) => setCustomDie(prev => ({ ...prev, inputValue: value }))}
             onUpdateCount={(delta) => {
               setCustomDie(prev => {
