@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Dices, Palette } from 'lucide-react';
+import { CustomDie } from './components/CustomDie';
 
 type DiceType = 4 | 6 | 8 | 10 | 12 | 20 | 100;
 
@@ -26,6 +27,7 @@ function App() {
 
   const [isRolling, setIsRolling] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState<number | null>(null);
+  const [customDieResult, setCustomDieResult] = useState<number | null>(null);
 
   const toggleDice = (index: number) => {
     setDice(prev => prev.map((d, i) =>
@@ -95,6 +97,11 @@ function App() {
 
   const resetAll = () => {
     setDice(prev => prev.map(d => ({ ...d, selected: false, result: null, count: 1, rolls: [], modifier: 0 })));
+    setCustomDieResult(null);
+  };
+
+  const handleCustomDieRoll = (result: number) => {
+    setCustomDieResult(result);
   };
 
   const lightenColor = (hex: string, percent: number) => {
@@ -119,6 +126,31 @@ function App() {
             <h1 className="text-5xl font-bold text-white">Dice Roller</h1>
           </div>
           <p className="text-slate-400 text-lg">Roll the dice to decide your fate</p>
+        </div>
+
+        {/* Custom Die Section */}
+        <div className="mb-8 flex justify-center">
+          <div className="w-full max-w-xs">
+            <CustomDie onRoll={handleCustomDieRoll} />
+            {customDieResult !== null && (
+              <div className="mt-4 text-center">
+                <div className="text-slate-400 text-sm mb-1">Result</div>
+                <div className="text-5xl font-extrabold text-purple-400 animate-bounce">
+                  {customDieResult}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="relative mb-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-slate-700"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-4 bg-slate-900 text-slate-500 font-medium">Standard Dice</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
