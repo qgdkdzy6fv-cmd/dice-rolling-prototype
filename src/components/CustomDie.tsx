@@ -35,7 +35,7 @@ export function CustomDie({
   onUpdateColor,
   onToggleColorPicker,
 }: CustomDieProps) {
-  const MIN_VALUE = 1;
+  const MIN_VALUE = 0;
   const MAX_VALUE = 9999;
 
   const lightenColor = (hex: string, percent: number) => {
