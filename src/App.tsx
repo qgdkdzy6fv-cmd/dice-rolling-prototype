@@ -328,7 +328,7 @@ function App() {
               }
             `}
           >
-            {isRolling ? 'Rolling...' : `Roll Selected ${totalSelectedDiceCount === 1 ? 'Die' : 'Dice'}`}
+            {isRolling ? 'Rolling...' : 'Roll Dice'}
           </button>
 
           <button
