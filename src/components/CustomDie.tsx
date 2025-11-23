@@ -86,48 +86,47 @@ export function CustomDie({
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-center gap-2 mb-2">
+    <div className="relative">
+      <div className="relative">
         <button
           onClick={(e) => {
             e.stopPropagation();
             onToggleColorPicker();
           }}
-          className="p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group"
+          className="absolute top-2 left-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group"
           title="Change color"
         >
           <Palette className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
         </button>
-        <span className="text-xs text-slate-500">Custom</span>
+        {showColorPicker && (
+          <div className="absolute top-12 left-2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
+            {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'].map(colorOption => (
+              <button
+                key={colorOption}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onUpdateColor(colorOption);
+                  onToggleColorPicker();
+                }}
+                className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
+                style={{ backgroundColor: colorOption }}
+              />
+            ))}
+          </div>
+        )}
+
         <button
           onClick={(e) => {
             e.stopPropagation();
             onUpdateValue(Math.min(MAX_VALUE, value + 1));
           }}
           disabled={value >= MAX_VALUE}
-          className="p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
+          className="absolute top-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
           title="Increase value"
         >
           <Plus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
         </button>
-      </div>
-      {showColorPicker && (
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20 grid grid-cols-3 gap-1 p-2 bg-slate-700 rounded-lg shadow-xl">
-          {['#eab308', '#ef4444', '#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'].map(colorOption => (
-            <button
-              key={colorOption}
-              onClick={(e) => {
-                e.stopPropagation();
-                onUpdateColor(colorOption);
-                onToggleColorPicker();
-              }}
-              className="w-6 h-6 rounded-full border-2 border-slate-500 hover:scale-110 transition-transform"
-              style={{ backgroundColor: colorOption }}
-            />
-          ))}
-        </div>
-      )}
-      <div className="relative">
+
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -156,6 +155,9 @@ export function CustomDie({
           `}
         >
           <div className="text-center">
+            <div className={`text-xs mb-1 ${selected ? 'text-white opacity-70' : 'text-slate-500'}`}>
+              Custom
+            </div>
             <div className={`text-4xl font-bold mb-2 ${selected ? 'text-white' : 'text-slate-300'}`}>
               D{value}
             </div>
