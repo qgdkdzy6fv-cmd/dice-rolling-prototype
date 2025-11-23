@@ -316,12 +316,12 @@ function App() {
           />
         </div>
 
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
           <button
             onClick={rollDice}
             disabled={!hasSelectedDice || isRolling}
             className={`
-              px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
+              px-4 py-2 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-lg transition-all duration-200
               ${hasSelectedDice && !isRolling
                 ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/50 hover:scale-105'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
@@ -335,7 +335,7 @@ function App() {
             onClick={resetAll}
             disabled={!hasSelectedDice}
             className={`
-              px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
+              px-4 py-2 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-lg transition-all duration-200
               ${hasSelectedDice
                 ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/50'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
@@ -349,7 +349,7 @@ function App() {
             onClick={resetColors}
             disabled={!hasSelectedDice}
             className={`
-              px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200
+              px-4 py-2 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-lg transition-all duration-200
               ${hasSelectedDice
                 ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/50'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
