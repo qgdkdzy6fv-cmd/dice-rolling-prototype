@@ -31,7 +31,9 @@ function App() {
     value: 1,
     selected: false,
     result: null as number | null,
+    count: 1,
     rolls: [] as number[],
+    modifier: 0,
     color: '#64748b',
     inputValue: '1'
   });
@@ -100,8 +102,11 @@ function App() {
       }));
 
       if (customDie.selected) {
-        const roll = Math.floor(Math.random() * customDie.value) + 1;
-        setCustomDie(prev => ({ ...prev, result: roll, rolls: [roll] }));
+        const rolls = Array.from({ length: customDie.count }, () =>
+          Math.floor(Math.random() * customDie.value) + 1
+        );
+        const total = rolls.reduce((sum, roll) => sum + roll, 0) + customDie.modifier;
+        setCustomDie(prev => ({ ...prev, result: total, rolls }));
       } else {
         setCustomDie(prev => ({ ...prev, result: null, rolls: [] }));
       }
@@ -112,7 +117,7 @@ function App() {
 
   const resetAll = () => {
     setDice(prev => prev.map(d => ({ ...d, selected: false, result: null, count: 1, rolls: [], modifier: 0 })));
-    setCustomDie(prev => ({ ...prev, selected: false, result: null, rolls: [] }));
+    setCustomDie(prev => ({ ...prev, selected: false, result: null, count: 1, rolls: [], modifier: 0 }));
   };
 
   const lightenColor = (hex: string, percent: number) => {
@@ -267,12 +272,26 @@ function App() {
             value={customDie.value}
             selected={customDie.selected}
             result={customDie.result}
+            count={customDie.count}
             rolls={customDie.rolls}
+            modifier={customDie.modifier}
             color={customDie.color}
             showColorPicker={showColorPicker === 7}
             onToggle={() => setCustomDie(prev => ({ ...prev, selected: !prev.selected }))}
             onUpdateValue={(newValue) => setCustomDie(prev => ({ ...prev, value: newValue, inputValue: String(newValue) }))}
             onValueInputChange={(value) => setCustomDie(prev => ({ ...prev, inputValue: value }))}
+            onUpdateCount={(delta) => {
+              setCustomDie(prev => {
+                const newCount = Math.max(1, Math.min(10, prev.count + delta));
+                return { ...prev, count: newCount };
+              });
+            }}
+            onUpdateModifier={(delta) => {
+              setCustomDie(prev => {
+                const newModifier = Math.max(-20, Math.min(20, prev.modifier + delta));
+                return { ...prev, modifier: newModifier };
+              });
+            }}
             onUpdateColor={(color) => setCustomDie(prev => ({ ...prev, color }))}
             onToggleColorPicker={() => setShowColorPicker(showColorPicker === 7 ? null : 7)}
           />

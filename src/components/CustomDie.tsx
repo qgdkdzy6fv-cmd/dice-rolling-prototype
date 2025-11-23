@@ -1,15 +1,19 @@
-import { Palette } from 'lucide-react';
+import { Palette, Plus, Minus } from 'lucide-react';
 
 interface CustomDieProps {
   value: number;
   selected: boolean;
   result: number | null;
+  count: number;
   rolls: number[];
+  modifier: number;
   color: string;
   showColorPicker: boolean;
   onToggle: () => void;
   onUpdateValue: (newValue: number) => void;
   onValueInputChange: (value: string) => void;
+  onUpdateCount: (delta: number) => void;
+  onUpdateModifier: (delta: number) => void;
   onUpdateColor: (color: string) => void;
   onToggleColorPicker: () => void;
 }
@@ -18,12 +22,16 @@ export function CustomDie({
   value,
   selected,
   result,
+  count,
   rolls,
+  modifier,
   color,
   showColorPicker,
   onToggle,
   onUpdateValue,
   onValueInputChange,
+  onUpdateCount,
+  onUpdateModifier,
   onUpdateColor,
   onToggleColorPicker,
 }: CustomDieProps) {
@@ -105,6 +113,33 @@ export function CustomDie({
           ))}
         </div>
       )}
+
+      {/* Plus button - top right */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onUpdateValue(Math.min(MAX_VALUE, value + 1));
+        }}
+        disabled={value >= MAX_VALUE}
+        className="absolute top-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
+        title="Increase value"
+      >
+        <Plus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+      </button>
+
+      {/* Minus button - bottom right */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onUpdateValue(Math.max(MIN_VALUE, value - 1));
+        }}
+        disabled={value <= MIN_VALUE}
+        className="absolute bottom-2 right-2 z-10 p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700 transition-all group disabled:opacity-30 disabled:cursor-not-allowed"
+        title="Decrease value"
+      >
+        <Minus className="w-4 h-4 text-slate-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+      </button>
+
       <button
         onClick={onToggle}
         style={selected ? {
@@ -127,7 +162,12 @@ export function CustomDie({
           {result !== null && (
             <>
               <div className={`text-sm mb-1 ${selected ? 'text-white opacity-90' : 'text-slate-400'}`}>
-                {rolls.length > 0 ? (rolls.length > 1 ? `[${rolls.join(' + ')}]` : rolls[0]) : result}
+                {rolls.length > 1 ? `[${rolls.join(' + ')}]` : rolls[0]}
+                {modifier !== 0 && (
+                  <span className={modifier > 0 ? 'text-white opacity-80' : 'text-red-300'}>
+                    {' '}{modifier > 0 ? '+' : ''}{modifier}
+                  </span>
+                )}
               </div>
               <div className={`
                 text-5xl font-extrabold mt-2 animate-bounce
@@ -146,28 +186,45 @@ export function CustomDie({
 
       <div className="space-y-2 mt-2">
         <div className="flex flex-col items-center gap-1">
-          <span className="text-xs text-slate-500">Custom Value</span>
+          <span className="text-xs text-slate-500">Quantity</span>
           <div className="flex items-center justify-center gap-2">
             <button
-              onClick={() => onUpdateValue(Math.max(MIN_VALUE, value - 1))}
-              disabled={value <= MIN_VALUE}
+              onClick={() => onUpdateCount(-1)}
+              disabled={count <= 1}
               className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               -
             </button>
-            <input
-              type="text"
-              inputMode="numeric"
-              value={value}
-              onChange={handleInputChange}
-              onBlur={handleInputBlur}
-              onClick={(e) => e.stopPropagation()}
-              className="w-16 px-2 py-1 bg-slate-700 border-2 border-slate-600 rounded-lg text-white text-center text-sm font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all"
-              placeholder="Value"
-            />
+            <span className="text-slate-300 font-semibold min-w-[3rem] text-center">
+              {count}x
+            </span>
             <button
-              onClick={() => onUpdateValue(Math.min(MAX_VALUE, value + 1))}
-              disabled={value >= MAX_VALUE}
+              onClick={() => onUpdateCount(1)}
+              disabled={count >= 10}
+              className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-xs text-slate-500">Modifier</span>
+          <div className="flex items-center justify-center gap-2">
+            <button
+              onClick={() => onUpdateModifier(-1)}
+              disabled={modifier <= -20}
+              className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              -
+            </button>
+            <span className={`font-semibold min-w-[3rem] text-center ${
+              modifier > 0 ? 'text-emerald-400' : modifier < 0 ? 'text-red-400' : 'text-slate-400'
+            }`}>
+              {modifier > 0 ? '+' : ''}{modifier}
+            </span>
+            <button
+              onClick={() => onUpdateModifier(1)}
+              disabled={modifier >= 20}
               className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               +
